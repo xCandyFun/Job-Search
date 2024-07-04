@@ -39,8 +39,6 @@ public class Mysqlconnection {
             + "Date VARCHAR(100) NOT NULL"
             + ")";
 
-
-
     public void connectTodatabase(){
 
         try (Connection connection = DriverManager.getConnection(url, user, password);
