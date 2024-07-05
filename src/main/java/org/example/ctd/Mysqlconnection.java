@@ -47,7 +47,6 @@ public class Mysqlconnection {
             if (!tableExeists(connection, tableName)){
                 statement.executeUpdate(createTableSQL);
                 System.out.println("Table created successfully!");
-
             }else {
                 System.out.println("Table already exists.");
             }
