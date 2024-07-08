@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -22,8 +23,10 @@ public class Main {
     public static List<Object> GetDataFromUser(){
         System.out.println("\nWhat is the company name? ");
         String company = sc.next();
+
         System.out.println("\nWhat is the topic");
         String topic = sc.next();
+
 
         LocalDate today = LocalDate.now();
 
@@ -51,10 +54,22 @@ public class Main {
                     menu();
                 }
                 case "4" -> {
-                    mysqlCon.DropTable();
+                    CheckForOkToDropTable();
                     menu();
                 }
             }
+        }
+    }
+
+    private static void CheckForOkToDropTable(){
+        System.out.println("are you sure?");
+        String OkToDrop = sc.next();
+        String yes = "yes";
+        if (Objects.equals(OkToDrop, yes)){
+            mysqlCon.DropTable();
+            mysqlCon.connectTodatabase();
+        }else {
+            System.exit(1);
         }
     }
 
