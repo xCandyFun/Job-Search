@@ -114,6 +114,25 @@ public class Mysqlconnection {
         }
    }
 
+   public void DropTable(){
+       // SQL statement to drop a table
+       String dropTableSQL = "DROP TABLE IF EXISTS works";
+
+       // Establish a connection
+       try (Connection connection = DriverManager.getConnection(url, user, password);
+            Statement statement = connection.createStatement()) {
+
+           // Execute the SQL statement
+           statement.executeUpdate(dropTableSQL);
+           System.out.println("Table dropped successfully");
+
+       } catch (SQLException e) {
+           // Handle SQL exceptions
+           e.printStackTrace();
+       }
+
+   }
+
     private static boolean tableExeists(Connection connection, String tableName)throws SQLException{
         DatabaseMetaData metaData = connection.getMetaData();
         var resultSet = metaData.getTables(null, null, tableName, null);

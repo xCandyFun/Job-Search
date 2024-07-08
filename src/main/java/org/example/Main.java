@@ -50,6 +50,10 @@ public class Main {
                     mysqlCon.GetDataFromDatabase();
                     menu();
                 }
+                case "4" -> {
+                    mysqlCon.DropTable();
+                    menu();
+                }
             }
         }
     }
@@ -59,6 +63,7 @@ public class Main {
         1. Exit
         2. Add data to database
         3. Get data from database
+        4. Drop the table
         """;
         System.out.println(menutext);
     }
