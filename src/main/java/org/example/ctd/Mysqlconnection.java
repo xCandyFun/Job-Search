@@ -114,6 +114,30 @@ public class Mysqlconnection {
         }
    }
 
+   public void DeleteDataFromId(Integer id){
+
+       int idToDelete = id;
+
+       // SQL DELETE statement
+       String sql = "DELETE FROM works WHERE id = ?";
+
+       // Establishing connection and deleting the record
+       try (Connection connection = DriverManager.getConnection(url, user, password);
+            PreparedStatement statement = connection.prepareStatement(sql)) {
+
+           // Set the ID parameter in the SQL statement
+           statement.setInt(1, idToDelete);
+
+           // Execute the DELETE statement
+           int rowsDeleted = statement.executeUpdate();
+           if (rowsDeleted > 0) {
+               System.out.println("A record was deleted successfully!");
+           }
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+   }
+
    public void DropTable(){
        // SQL statement to drop a table
        String dropTableSQL = "DROP TABLE IF EXISTS works";

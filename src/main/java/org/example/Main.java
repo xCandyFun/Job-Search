@@ -54,6 +54,12 @@ public class Main {
                     menu();
                 }
                 case "4" -> {
+                    System.out.println("Id to Remove?");
+                    Integer TheIdToDelete = sc.nextInt();
+                    mysqlCon.DeleteDataFromId(TheIdToDelete);
+                    menu();
+                }
+                case "5" -> {
                     CheckForOkToDropTable();
                     menu();
                 }
@@ -78,7 +84,8 @@ public class Main {
         1. Exit
         2. Add data to database
         3. Get data from database
-        4. Drop the table
+        4. Remove data from id
+        5. Drop the table
         """;
         System.out.println(menutext);
     }
