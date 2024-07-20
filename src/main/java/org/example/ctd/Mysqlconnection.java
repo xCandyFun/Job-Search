@@ -117,7 +117,6 @@ public class Mysqlconnection {
    public void DeleteDataFromId(Integer id){
 
        int idToDelete = id;
-
        // SQL DELETE statement
        String sql = "DELETE FROM works WHERE id = ?";
 
