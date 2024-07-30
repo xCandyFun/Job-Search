@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Main {
 
     static Mysqlconnection mysqlCon = new Mysqlconnection();
-
     static private final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
