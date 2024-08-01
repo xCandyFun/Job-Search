@@ -18,7 +18,6 @@ public class Main {
         mysqlCon.connectTodatabase();
         run();
     }
-
     public static List<Object> GetDataFromUser(){
         System.out.println("\nWhat is the company name? ");
         String company = sc.next();
