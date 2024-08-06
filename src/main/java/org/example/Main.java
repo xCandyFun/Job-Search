@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.ctd.Mysqlconnection;
 
+import javax.swing.*;
 import java.time.LocalDate;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class Main {
     static private final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        mysqlCon.connectTodatabase();
+        //mysqlCon.connectTodatabase();
         run();
     }
     public static List<Object> GetDataFromUser(){
@@ -38,6 +39,7 @@ public class Main {
     }
 
     private static void run(){
+        runWindow();
         menu();
         while (true){
             String choice = sc.next();
@@ -87,4 +89,9 @@ public class Main {
         """;
         System.out.println(menutext);
     }
+
+    private static void runWindow(){
+        SwingUtilities.invokeLater(Window::new);
+    }
+
 }
