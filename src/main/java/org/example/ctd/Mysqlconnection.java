@@ -26,10 +26,6 @@ public class Mysqlconnection {
     private final String user = usernameForDB;
     private final String password = passwordForDB;
 
-   // private final String url = "jdbc:mysql://localhost:3306/WorkSql";
-    //private final String user = "developer";
-    //private final String password = "password";
-
     private final String tableName = "works";
 
     String createTableSQL = "CREATE TABLE IF NOT EXISTS works ("
@@ -57,31 +53,32 @@ public class Mysqlconnection {
     }
 
    public void SaveVariablesToMySQL(){
-
-       List<Object> workData = GetDataFromUser();
-
-       String company = (String) workData.get(0);
-       String topic = (String) workData.get(1);
-       LocalDate today = (LocalDate) workData.get(2);
-
-        try(Connection conn = DriverManager.getConnection(url,user, password)) {
-            if (conn != null){
-
-                String sql = "INSERT INTO works (Company, Topic, Date) VALUES (?, ?, ?)";
-                try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                    pstmt.setString(1, company);
-                    pstmt.setString(2, topic);
-                    pstmt.setDate(3, java.sql.Date.valueOf(today));
-                    pstmt.executeUpdate();
-                    System.out.println("Variables saved successfully!\n");
-                } catch (SQLException e){
-                    e.printStackTrace();
-                }
-            }
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+       System.out.println("Test");
+//
+//       List<Object> workData = GetDataFromUser();
+//
+//       String company = (String) workData.get(0);
+//       String topic = (String) workData.get(1);
+//       LocalDate today = (LocalDate) workData.get(2);
+//
+//        try(Connection conn = DriverManager.getConnection(url,user, password)) {
+//            if (conn != null){
+//
+//                String sql = "INSERT INTO works (Company, Topic, Date) VALUES (?, ?, ?)";
+//                try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+//                    pstmt.setString(1, company);
+//                    pstmt.setString(2, topic);
+//                    pstmt.setDate(3, java.sql.Date.valueOf(today));
+//                    pstmt.executeUpdate();
+//                    System.out.println("Variables saved successfully!\n");
+//                } catch (SQLException e){
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//        } catch (SQLException e){
+//            e.printStackTrace();
+//        }
    }
 
    public void GetDataFromDatabase(){
