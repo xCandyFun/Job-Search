@@ -21,12 +21,11 @@ public class Window extends JFrame {
         mainWindow();
     }
 
-    private static JPanel panel = new JPanel();
-    private static JPanel panel2 = new JPanel();
-    private static JPanel panel3 = new JPanel();
-    private static JPanel panel4 = new JPanel();
-    private static JPanel panel5 = new JPanel();
-    private static JPanel panel6 = new JPanel();
+    private static final JPanel panel = new JPanel();
+    private static final JPanel panel2 = new JPanel();
+    private static final JPanel panel3 = new JPanel();
+    private static final JPanel panel4 = new JPanel();
+    private static final JPanel panel5 = new JPanel();
     private static final JButton ExitTheApplication = new JButton("1: Exit");
     private static final JButton button2 = new JButton("2: Add data to database");
     private static final JButton button3 = new JButton("3: Get data from database");
@@ -117,46 +116,12 @@ public class Window extends JFrame {
         JTextField textField2 = new JTextField(10);
 
         // Create a button
-        JButton button = new JButton("Saved");
-        JButton button2 = new JButton("Saved");
         JButton SaveButton = new JButton("Saved");
 
         // Create a label to display the result
         JLabel label = new JLabel("What is the company name?: ");
-        JLabel label2 = new JLabel("Here is the name: ");
-
 
         JLabel label3 = new JLabel("What is the topic?: ");
-        JLabel label4 = new JLabel("Here is the name: ");
-
-        JLabel label5 = new JLabel("Here is the name: ");
-
-        // Add an ActionListener to the button
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Retrieve the text from the JTextField
-//                String company = textField.getText();
-//
-//                label2.setText("Here is the name: " + company);
-//                work.add(company);
-
-            }
-        });
-
-        button2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-//                String topic = textField2.getText();
-//
-//                label4.setText("Here is the name: " + topic);
-//                LocalDate today = LocalDate.now();
-//                work.add(topic);
-//                work.add(today);
-//                System.out.println(work);
-
-            }
-        });
 
 
         SaveButton.addActionListener(new ActionListener() {
