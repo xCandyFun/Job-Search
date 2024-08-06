@@ -19,24 +19,6 @@ public class Main {
         mysqlCon.connectTodatabase();
         run();
     }
-    public static List<Object> GetDataFromUser(){
-        System.out.println("\nWhat is the company name? ");
-        String company = sc.next();
-
-        System.out.println("\nWhat is the topic");
-        String topic = sc.next();
-
-
-        LocalDate today = LocalDate.now();
-
-        List<Object> work = new ArrayList<>();
-
-        work.add(company);
-        work.add(topic);
-        work.add(today);
-
-        return work;
-    }
 
     private static void run(){
         runWindow();

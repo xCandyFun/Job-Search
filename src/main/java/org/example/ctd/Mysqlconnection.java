@@ -11,8 +11,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.example.Main.GetDataFromUser;
-
 public class Mysqlconnection {
 
     Dotenv dotenv = Dotenv.configure().load();
@@ -56,7 +54,6 @@ public class Mysqlconnection {
 
     public void SaveVariablesToMySQL() {
 
-        //List<Object> workData = GetDataFromUser();
         List<Object> workData = Window.GetWorkList();
 
         String company = (String) workData.get(0);
