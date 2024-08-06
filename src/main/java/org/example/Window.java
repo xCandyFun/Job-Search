@@ -8,6 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Window extends JFrame {
 
@@ -15,15 +19,20 @@ public class Window extends JFrame {
 
     public Window() {
         mainWindow();
-        //removeAll();
     }
 
     private static JPanel panel = new JPanel();
+    private static JPanel panel2 = new JPanel();
+    private static JPanel panel3 = new JPanel();
+    private static JPanel panel4 = new JPanel();
+    private static JPanel panel5 = new JPanel();
+    private static JPanel panel6 = new JPanel();
     private static final JButton ExitTheApplication = new JButton("1: Exit");
     private static final JButton button2 = new JButton("2: Add data to database");
     private static final JButton button3 = new JButton("3: Get data from database");
     private static final JButton button4 = new JButton("4: Remove data from id");
     private static final JButton button5 = new JButton("5: Drop the table");
+    private static List<Object> work;
 
     public void buttonStyle(){
 
@@ -92,7 +101,113 @@ public class Window extends JFrame {
         setVisible(true);
     }
 
-    public void secondaryWindow(){}
+    public void secondaryWindow(){
+
+
+        panel2.setLayout(new GridLayout(3, 0));
+        panel3.setLayout(new FlowLayout(FlowLayout.CENTER));
+        panel2.add(panel3);
+        panel2.add(panel4);
+        panel2.add(panel5);
+        panel.add(panel2);
+
+
+        // Create a JTextField
+        JTextField textField = new JTextField(10);
+        JTextField textField2 = new JTextField(10);
+
+        // Create a button
+        JButton button = new JButton("Saved");
+        JButton button2 = new JButton("Saved");
+        JButton SaveButton = new JButton("Saved");
+
+        // Create a label to display the result
+        JLabel label = new JLabel("What is the company name?: ");
+        JLabel label2 = new JLabel("Here is the name: ");
+
+
+        JLabel label3 = new JLabel("What is the topic?: ");
+        JLabel label4 = new JLabel("Here is the name: ");
+
+        JLabel label5 = new JLabel("Here is the name: ");
+
+        // Add an ActionListener to the button
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Retrieve the text from the JTextField
+//                String company = textField.getText();
+//
+//                label2.setText("Here is the name: " + company);
+//                work.add(company);
+
+            }
+        });
+
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                String topic = textField2.getText();
+//
+//                label4.setText("Here is the name: " + topic);
+//                LocalDate today = LocalDate.now();
+//                work.add(topic);
+//                work.add(today);
+//                System.out.println(work);
+
+            }
+        });
+
+
+        SaveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String company = textField.getText();
+                String topic = textField2.getText();
+                LocalDate today = LocalDate.now();
+
+                work = new ArrayList<>();
+
+
+                work.add(company);
+                work.add(topic);
+                work.add(today);
+
+                mysqlCon.SaveVariablesToMySQL();
+
+                clearScreen();
+                mainWindow();
+            }
+        });
+
+        panel3.add(label);
+        panel3.add(textField);
+
+
+        panel4.add(label3);
+        panel4.add(textField2);
+
+
+        panel5.add(SaveButton);
+
+
+
+        // Make the frame visible
+        setVisible(true);
+
+    }
+
+    public static List<Object> GetWorkList(){
+        return new ArrayList<>(work);
+    }
+
+
+    public void clearScreen(){
+        panel.removeAll();
+        panel.revalidate();
+        panel.repaint();
+    }
 
     public void actionListenerForButtons() {
 
@@ -106,8 +221,9 @@ public class Window extends JFrame {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                removeAll();
-                mysqlCon.SaveVariablesToMySQL();
+                clearScreen();
+                secondaryWindow();
+
             }
         });
 

@@ -16,7 +16,7 @@ public class Main {
     static private final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        //mysqlCon.connectTodatabase();
+        mysqlCon.connectTodatabase();
         run();
     }
     public static List<Object> GetDataFromUser(){
@@ -90,7 +90,7 @@ public class Main {
         System.out.println(menutext);
     }
 
-    private static void runWindow(){
+    public static void runWindow(){
         SwingUtilities.invokeLater(Window::new);
     }
 

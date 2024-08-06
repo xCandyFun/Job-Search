@@ -2,6 +2,7 @@ package org.example.ctd;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.example.Main;
+import org.example.Window;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -35,54 +36,55 @@ public class Mysqlconnection {
             + "Date VARCHAR(100) NOT NULL"
             + ")";
 
-    public void connectTodatabase(){
+    public void connectTodatabase() {
 
         try (Connection connection = DriverManager.getConnection(url, user, password);
              Statement statement = connection.createStatement()) {
             System.out.println("Connected to the database!");
-            if (!tableExeists(connection, tableName)){
+            if (!tableExeists(connection, tableName)) {
                 statement.executeUpdate(createTableSQL);
                 System.out.println("Table created successfully!");
-            }else {
+            } else {
                 System.out.println("Table already exists.");
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Connection failed!");
             System.exit(1);
         }
     }
 
-   public void SaveVariablesToMySQL(){
-       System.out.println("Test");
-//
-//       List<Object> workData = GetDataFromUser();
-//
-//       String company = (String) workData.get(0);
-//       String topic = (String) workData.get(1);
-//       LocalDate today = (LocalDate) workData.get(2);
-//
-//        try(Connection conn = DriverManager.getConnection(url,user, password)) {
-//            if (conn != null){
-//
-//                String sql = "INSERT INTO works (Company, Topic, Date) VALUES (?, ?, ?)";
-//                try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-//                    pstmt.setString(1, company);
-//                    pstmt.setString(2, topic);
-//                    pstmt.setDate(3, java.sql.Date.valueOf(today));
-//                    pstmt.executeUpdate();
-//                    System.out.println("Variables saved successfully!\n");
-//                } catch (SQLException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//        }
-   }
 
-   public void GetDataFromDatabase(){
-        try(Connection conn = DriverManager.getConnection(url, user, password)) {
+    public void SaveVariablesToMySQL() {
+
+        //List<Object> workData = GetDataFromUser();
+        List<Object> workData = Window.GetWorkList();
+
+        String company = (String) workData.get(0);
+        String topic = (String) workData.get(1);
+        LocalDate today = (LocalDate) workData.get(2);
+
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            if (conn != null) {
+
+                String sql = "INSERT INTO works (Company, Topic, Date) VALUES (?, ?, ?)";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setString(1, company);
+                    pstmt.setString(2, topic);
+                    pstmt.setDate(3, java.sql.Date.valueOf(today));
+                    pstmt.executeUpdate();
+                    System.out.println("Variables saved successfully!\n");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void GetDataFromDatabase() {
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
 
             if (conn != null) {
                 System.out.println("Connected to the database!");
@@ -106,54 +108,54 @@ public class Mysqlconnection {
                     }
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getErrorCode());
         }
-   }
+    }
 
-   public void DeleteDataFromId(Integer id){
+    public void DeleteDataFromId(Integer id) {
 
-       int idToDelete = id;
-       // SQL DELETE statement
-       String sql = "DELETE FROM works WHERE id = ?";
+        int idToDelete = id;
+        // SQL DELETE statement
+        String sql = "DELETE FROM works WHERE id = ?";
 
-       // Establishing connection and deleting the record
-       try (Connection connection = DriverManager.getConnection(url, user, password);
-            PreparedStatement statement = connection.prepareStatement(sql)) {
+        // Establishing connection and deleting the record
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-           // Set the ID parameter in the SQL statement
-           statement.setInt(1, idToDelete);
+            // Set the ID parameter in the SQL statement
+            statement.setInt(1, idToDelete);
 
-           // Execute the DELETE statement
-           int rowsDeleted = statement.executeUpdate();
-           if (rowsDeleted > 0) {
-               System.out.println("A record was deleted successfully!");
-           }
-       } catch (SQLException e) {
-           e.printStackTrace();
-       }
-   }
+            // Execute the DELETE statement
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("A record was deleted successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-   public void DropTable(){
-       // SQL statement to drop a table
-       String dropTableSQL = "DROP TABLE IF EXISTS works";
+    public void DropTable() {
+        // SQL statement to drop a table
+        String dropTableSQL = "DROP TABLE IF EXISTS works";
 
-       // Establish a connection
-       try (Connection connection = DriverManager.getConnection(url, user, password);
-            Statement statement = connection.createStatement()) {
+        // Establish a connection
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
 
-           // Execute the SQL statement
-           statement.executeUpdate(dropTableSQL);
-           System.out.println("Table dropped successfully");
+            // Execute the SQL statement
+            statement.executeUpdate(dropTableSQL);
+            System.out.println("Table dropped successfully");
 
-       } catch (SQLException e) {
-           // Handle SQL exceptions
-           e.printStackTrace();
-       }
+        } catch (SQLException e) {
+            // Handle SQL exceptions
+            e.printStackTrace();
+        }
 
-   }
+    }
 
-    private static boolean tableExeists(Connection connection, String tableName)throws SQLException{
+    private static boolean tableExeists(Connection connection, String tableName) throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
         var resultSet = metaData.getTables(null, null, tableName, null);
         return resultSet.next();
