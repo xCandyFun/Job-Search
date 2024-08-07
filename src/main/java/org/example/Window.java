@@ -21,11 +21,14 @@ public class Window extends JFrame {
         mainWindow();
     }
 
-    private static final JPanel panel = new JPanel();
-    private static final JPanel panel2 = new JPanel();
-    private static final JPanel panel3 = new JPanel();
-    private static final JPanel panel4 = new JPanel();
-    private static final JPanel panel5 = new JPanel();
+    private JPanel cards;
+    private JPanel mainPanel = new JPanel();
+    private JPanel secondaryPanel = new JPanel();
+    //private static final JPanel panel = new JPanel();
+    //private static final JPanel panel2 = new JPanel();
+    //private static final JPanel panel3 = new JPanel();
+    //private static final JPanel panel4 = new JPanel();
+    //private static final JPanel panel5 = new JPanel();
     private static final JButton ExitTheApplication = new JButton("1: Exit");
     private static final JButton button2 = new JButton("2: Add data to database");
     private static final JButton button3 = new JButton("3: Get data from database");
@@ -33,13 +36,13 @@ public class Window extends JFrame {
     private static final JButton button5 = new JButton("5: Drop the table");
     private static List<Object> work;
 
-    public void buttonStyle(){
+    public void buttonStyle() {
 
-        ExitTheApplication.setFont(new Font("",Font.BOLD, 20));
-        button2.setFont(new Font("",Font.BOLD, 20));
-        button3.setFont(new Font("",Font.BOLD, 20));
-        button4.setFont(new Font("",Font.BOLD, 20));
-        button5.setFont(new Font("",Font.BOLD, 20));
+        ExitTheApplication.setFont(new Font("", Font.BOLD, 20));
+        button2.setFont(new Font("", Font.BOLD, 20));
+        button3.setFont(new Font("", Font.BOLD, 20));
+        button4.setFont(new Font("", Font.BOLD, 20));
+        button5.setFont(new Font("", Font.BOLD, 20));
     }
 
 
@@ -47,45 +50,43 @@ public class Window extends JFrame {
 
         buttonStyle();
 
-        panel.setLayout(new GridLayout(5, 3));
+        mainPanel.setLayout(new GridLayout(5, 3));
 
-        // I know It looks bad, but it's looking as I want :D
-        //TODO for loop for labels
-        JLabel jLabel1 = new JLabel();
-        JLabel jLabel2 = new JLabel();
-        JLabel jLabel3 = new JLabel();
-        JLabel jLabel4 = new JLabel();
-        JLabel jLabel5 = new JLabel();
-        JLabel jLabel6 = new JLabel();
-        JLabel jLabel7 = new JLabel();
-        JLabel jLabel8 = new JLabel();
-        JLabel jLabel9 = new JLabel();
-        JLabel jLabel10 = new JLabel();
+        JLabel[] labels = new JLabel[10];
+        for (int i = 0; i < labels.length; i++) {
+            labels[i] = new JLabel();
+        }
 
-        panel.add(jLabel1, LEFT_ALIGNMENT);
-        panel.add(ExitTheApplication, CENTER_ALIGNMENT);
-        panel.add(jLabel2, RIGHT_ALIGNMENT);
+        mainPanel.add(labels[0], LEFT_ALIGNMENT);
+        mainPanel.add(ExitTheApplication, CENTER_ALIGNMENT);
+        mainPanel.add(labels[1], RIGHT_ALIGNMENT);
 
-        panel.add(jLabel3, LEFT_ALIGNMENT);
-        panel.add(button2, CENTER_ALIGNMENT);
-        panel.add(jLabel4, RIGHT_ALIGNMENT);
+        mainPanel.add(labels[2], LEFT_ALIGNMENT);
+        mainPanel.add(button2, CENTER_ALIGNMENT);
+        mainPanel.add(labels[3], RIGHT_ALIGNMENT);
 
-        panel.add(jLabel5, LEFT_ALIGNMENT);
-        panel.add(button3, CENTER_ALIGNMENT);
-        panel.add(jLabel6, RIGHT_ALIGNMENT);
+        mainPanel.add(labels[4], LEFT_ALIGNMENT);
+        mainPanel.add(button3, CENTER_ALIGNMENT);
+        mainPanel.add(labels[5], RIGHT_ALIGNMENT);
 
-        panel.add(jLabel7, LEFT_ALIGNMENT);
-        panel.add(button4, CENTER_ALIGNMENT);
-        panel.add(jLabel8, RIGHT_ALIGNMENT);
+        mainPanel.add(labels[6], LEFT_ALIGNMENT);
+        mainPanel.add(button4, CENTER_ALIGNMENT);
+        mainPanel.add(labels[7], RIGHT_ALIGNMENT);
 
-        panel.add(jLabel9, LEFT_ALIGNMENT);
-        panel.add(button5, CENTER_ALIGNMENT);
-        panel.add(jLabel10, RIGHT_ALIGNMENT);
+        mainPanel.add(labels[8], LEFT_ALIGNMENT);
+        mainPanel.add(button5, CENTER_ALIGNMENT);
+        mainPanel.add(labels[9], RIGHT_ALIGNMENT);
 
-        add(panel);
+        //add(panel);
 
         actionListenerForButtons();
         keyListener();
+
+        cards = new JPanel(new CardLayout());
+        cards.add(mainPanel, "Main");
+        cards.add(secondaryPanel, "Secondary");
+
+        add(cards);
 
 
         setSize(1600, 700);
@@ -100,15 +101,18 @@ public class Window extends JFrame {
         setVisible(true);
     }
 
-    public void secondaryWindow(){
+    public void secondaryWindow() {
 
+        secondaryPanel.setLayout(new GridLayout(10,0));
 
-        panel2.setLayout(new GridLayout(3, 0));
-        panel3.setLayout(new FlowLayout(FlowLayout.CENTER));
-        panel2.add(panel3);
-        panel2.add(panel4);
-        panel2.add(panel5);
-        panel.add(panel2);
+        JPanel panel3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        JPanel panel4 = new JPanel();
+        JPanel panel5 = new JPanel();
+
+        secondaryPanel.add(panel3);
+        secondaryPanel.add(panel4);
+        secondaryPanel.add(panel5);
 
 
         // Create a JTextField
@@ -117,12 +121,12 @@ public class Window extends JFrame {
 
         // Create a button
         JButton SaveButton = new JButton("Saved");
+        JButton BackButton = new JButton("Back");
 
         // Create a label to display the result
         JLabel label = new JLabel("What is the company name?: ");
 
         JLabel label3 = new JLabel("What is the topic?: ");
-
 
         SaveButton.addActionListener(new ActionListener() {
             @Override
@@ -141,8 +145,14 @@ public class Window extends JFrame {
 
                 mysqlCon.SaveVariablesToMySQL();
 
-                clearScreen();
-                mainWindow();
+                showMainWindow();
+            }
+        });
+
+        BackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMainWindow();
             }
         });
 
@@ -155,23 +165,12 @@ public class Window extends JFrame {
 
 
         panel5.add(SaveButton);
-
-
-
-        // Make the frame visible
-        setVisible(true);
+        panel5.add(BackButton);
 
     }
 
-    public static List<Object> GetWorkList(){
+    public static List<Object> GetWorkList() {
         return new ArrayList<>(work);
-    }
-
-
-    public void clearScreen(){
-        panel.removeAll();
-        panel.revalidate();
-        panel.repaint();
     }
 
     public void actionListenerForButtons() {
@@ -186,9 +185,7 @@ public class Window extends JFrame {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clearScreen();
-                secondaryWindow();
-
+                showSecondaryWindow();
             }
         });
 
@@ -205,6 +202,30 @@ public class Window extends JFrame {
             }
         });
 
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_2) {
+                    showSecondaryWindow();
+                }
+
+            }
+        });
+
+    }
+
+    private void showMainWindow(){
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        cl.show(cards, "Main");
+    }
+
+    private void showSecondaryWindow(){
+        secondaryPanel.removeAll();
+        secondaryWindow();
+        secondaryPanel.revalidate();
+        secondaryPanel.repaint();
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        cl.show(cards, "Secondary");
     }
 
 }
