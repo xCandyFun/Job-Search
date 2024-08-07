@@ -199,9 +199,10 @@ public class Window extends JFrame {
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String filePath = "database_export.csv";
+                LocalDate today = LocalDate.now();
+                String filePath = today+".csv";
                 mysqlCon.exportDataToCsv(data, filePath);
-                JOptionPane.showMessageDialog(thirdPanel, "Date exported to " + filePath);
+                JOptionPane.showMessageDialog(thirdPanel, "Data exported to " + filePath);
             }
         });
 
