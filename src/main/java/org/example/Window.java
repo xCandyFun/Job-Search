@@ -24,11 +24,7 @@ public class Window extends JFrame {
     private JPanel cards;
     private JPanel mainPanel = new JPanel();
     private JPanel secondaryPanel = new JPanel();
-    //private static final JPanel panel = new JPanel();
-    //private static final JPanel panel2 = new JPanel();
-    //private static final JPanel panel3 = new JPanel();
-    //private static final JPanel panel4 = new JPanel();
-    //private static final JPanel panel5 = new JPanel();
+    private JPanel thirdPanel = new JPanel();
     private static final JButton ExitTheApplication = new JButton("1: Exit");
     private static final JButton button2 = new JButton("2: Add data to database");
     private static final JButton button3 = new JButton("3: Get data from database");
@@ -85,6 +81,7 @@ public class Window extends JFrame {
         cards = new JPanel(new CardLayout());
         cards.add(mainPanel, "Main");
         cards.add(secondaryPanel, "Secondary");
+        cards.add(thirdPanel, "Third");
 
         add(cards);
 
@@ -169,6 +166,57 @@ public class Window extends JFrame {
 
     }
 
+    public void thirdWindow(){
+        thirdPanel.removeAll();
+
+        List<String> data = mysqlCon.GetDataFromDatabase();
+
+        thirdPanel.setLayout(new BoxLayout(thirdPanel, BoxLayout.Y_AXIS));
+        thirdPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        thirdPanel.add(Box.createVerticalGlue());
+
+        for (String record : data) {
+            JLabel label = new JLabel(record);
+            label.setAlignmentX(Component.CENTER_ALIGNMENT);
+            thirdPanel.add(label);
+
+        }
+
+        JButton backButton = new JButton("Back");
+        JButton exportButton = new JButton("Export to CSV");
+
+        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        exportButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMainWindow();
+            }
+        });
+
+        exportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String filePath = "database_export.csv";
+                mysqlCon.exportDataToCsv(data, filePath);
+                JOptionPane.showMessageDialog(thirdPanel, "Date exported to " + filePath);
+            }
+        });
+
+        thirdPanel.add(backButton);
+        thirdPanel.add(exportButton);
+
+
+
+        thirdPanel.add(Box.createVerticalGlue());
+
+        thirdPanel.revalidate();
+        thirdPanel.repaint();
+
+    }
+
     public static List<Object> GetWorkList() {
         return new ArrayList<>(work);
     }
@@ -186,6 +234,13 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showSecondaryWindow();
+            }
+        });
+
+        button3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showThirdWindow();
             }
         });
 
@@ -212,6 +267,15 @@ public class Window extends JFrame {
             }
         });
 
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode()==KeyEvent.VK_3){
+                    showThirdWindow();
+                }
+            }
+        });
+
     }
 
     private void showMainWindow(){
@@ -226,6 +290,12 @@ public class Window extends JFrame {
         secondaryPanel.repaint();
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, "Secondary");
+    }
+
+    private void showThirdWindow(){
+        thirdWindow();
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        cl.show(cards, "Third");
     }
 
 }
