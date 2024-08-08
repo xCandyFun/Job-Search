@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Window extends JFrame {
 
@@ -25,6 +24,7 @@ public class Window extends JFrame {
     private JPanel mainPanel = new JPanel();
     private JPanel secondaryPanel = new JPanel();
     private JPanel thirdPanel = new JPanel();
+    private JPanel fourthPanel = new JPanel();
     private static final JButton ExitTheApplication = new JButton("1: Exit");
     private static final JButton button2 = new JButton("2: Add data to database");
     private static final JButton button3 = new JButton("3: Get data from database");
@@ -82,6 +82,7 @@ public class Window extends JFrame {
         cards.add(mainPanel, "Main");
         cards.add(secondaryPanel, "Secondary");
         cards.add(thirdPanel, "Third");
+        cards.add(fourthPanel, "fourth");
 
         add(cards);
 
@@ -142,7 +143,8 @@ public class Window extends JFrame {
 
                 mysqlCon.SaveVariablesToMySQL();
 
-                showMainWindow();
+                //click on saved button return to main window
+                //showMainWindow();
             }
         });
 
@@ -218,6 +220,27 @@ public class Window extends JFrame {
 
     }
 
+    public void fourthWindow(){
+
+        fourthPanel.setLayout(new GridLayout(10,0));
+
+        JPanel panelLayout = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        JPanel panel = new JPanel();
+
+        fourthPanel.add(panelLayout);
+        fourthPanel.add(panel);
+
+        JTextField textField = new JTextField(10);
+
+        JLabel label = new JLabel("What is the company name?: ");
+
+        panelLayout.add(label);
+        panelLayout.add(textField);
+
+
+    }
+
     public static List<Object> GetWorkList() {
         return new ArrayList<>(work);
     }
@@ -242,6 +265,20 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showThirdWindow();
+            }
+        });
+
+        button4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showFourthWindow();
+            }
+        });
+
+        button5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mysqlCon.DropTable();
             }
         });
 
@@ -277,6 +314,15 @@ public class Window extends JFrame {
             }
         });
 
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_4){
+                    showFourthWindow();
+                }
+            }
+        });
+
     }
 
     private void showMainWindow(){
@@ -297,6 +343,12 @@ public class Window extends JFrame {
         thirdWindow();
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, "Third");
+    }
+
+    private void showFourthWindow(){
+        fourthWindow();
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        cl.show(cards, "fourth");
     }
 
 }
