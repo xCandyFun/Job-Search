@@ -2,6 +2,7 @@ package org.example.ctd;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.example.Window;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -25,12 +26,15 @@ public class Mysqlconnection {
 
     private final String tableName = "works";
 
+    //id INT AUTO_INCREMENT PRIMARY KEY
+
     String createTableSQL = "CREATE TABLE IF NOT EXISTS works ("
             + "id INT AUTO_INCREMENT PRIMARY KEY,"
             + "Company VARCHAR(100) NOT NULL,"
             + "Topic VARCHAR(100) NOT NULL,"
             + "Date VARCHAR(100) NOT NULL"
             + ")";
+
 
     public void connectTodatabase() {
 
@@ -78,39 +82,39 @@ public class Mysqlconnection {
         }
     }
 
-    public List<String> GetDataFromDatabase(){
+    public List<String> GetDataFromDatabase() {
         List<String> data = new ArrayList<>();
 
-        try (Connection conn = DriverManager.getConnection(url, user, password)){
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
 
-            if (conn != null){
+            if (conn != null) {
 
-                Statement stmt =  conn.createStatement();
+                Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT id, Company, Topic, Date FROM works");
 
-                while (rs.next()){
+                while (rs.next()) {
                     String id = rs.getString("id");
                     String company = rs.getString("Company");
                     String topic = rs.getString("Topic");
                     String date = rs.getString("Date");
 
-                    data.add(id+" - "+company+" - "+topic+" - "+date);
+                    data.add(id + " - " + company + " - " + topic + " - " + date);
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return data;
     }
 
-    public void exportDataToCsv(List<String> data, String filepath){
+    public void exportDataToCsv(List<String> data, String filepath) {
         try (FileWriter writer = new FileWriter(filepath)) {
             writer.append("ID,Company,Topic,Date\n");
-            for (String record : data){
+            for (String record : data) {
                 writer.append(record.replace("-", ",")).append("\n");
             }
             writer.flush();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -119,7 +123,8 @@ public class Mysqlconnection {
 
         int idToDelete = id;
         // SQL DELETE statement
-        String sql = "DELETE FROM works WHERE id = ?";
+        String sql = "DELETE FROM works WHERE id = ?"; // sql
+
 
         // Establishing connection and deleting the record
         try (Connection connection = DriverManager.getConnection(url, user, password);
@@ -137,6 +142,7 @@ public class Mysqlconnection {
             e.printStackTrace();
         }
     }
+
 
     public void DropTable() {
         // SQL statement to drop a table

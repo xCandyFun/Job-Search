@@ -118,7 +118,7 @@ public class Window extends JFrame {
         JTextField textField2 = new JTextField(10);
 
         // Create a button
-        JButton SaveButton = new JButton("Saved");
+        JButton SaveButton = new JButton("Save");
         JButton BackButton = new JButton("Back");
 
         // Create a label to display the result
@@ -143,8 +143,10 @@ public class Window extends JFrame {
 
                 mysqlCon.SaveVariablesToMySQL();
 
+                JOptionPane.showMessageDialog(secondaryPanel, "Saved");
+
                 //click on saved button return to main window
-                //showMainWindow();
+                showMainWindow();
             }
         });
 
@@ -205,6 +207,7 @@ public class Window extends JFrame {
                 String filePath = today+".csv";
                 mysqlCon.exportDataToCsv(data, filePath);
                 JOptionPane.showMessageDialog(thirdPanel, "Data exported to " + filePath);
+                showMainWindow();
             }
         });
 
@@ -227,16 +230,50 @@ public class Window extends JFrame {
         JPanel panelLayout = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         JPanel panel = new JPanel();
+        JPanel buttonPanel = new JPanel();
 
         fourthPanel.add(panelLayout);
         fourthPanel.add(panel);
+        fourthPanel.add(buttonPanel);
 
         JTextField textField = new JTextField(10);
 
-        JLabel label = new JLabel("What is the company name?: ");
+        JLabel label = new JLabel("Delete data from id: ");
+
+        JButton DeleteDataButton = new JButton("Delete data");
+        JButton BackButton = new JButton("Back");
+
+        DeleteDataButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String Id = textField.getText();
+
+                System.out.println(Id);
+
+                Integer intID = Integer.valueOf(Id);
+
+                mysqlCon.DeleteDataFromId(intID);
+
+                JOptionPane.showMessageDialog(fourthPanel, "Deleted");
+
+                showMainWindow();
+
+            }
+        });
+
+        BackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMainWindow();
+            }
+        });
 
         panelLayout.add(label);
         panelLayout.add(textField);
+
+        buttonPanel.add(DeleteDataButton);
+        buttonPanel.add(BackButton);
 
 
     }
@@ -346,7 +383,10 @@ public class Window extends JFrame {
     }
 
     private void showFourthWindow(){
+        fourthPanel.removeAll();
         fourthWindow();
+        fourthPanel.revalidate();
+        fourthPanel.repaint();
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, "fourth");
     }
