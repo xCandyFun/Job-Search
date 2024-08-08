@@ -150,6 +150,13 @@ public class Mysqlconnection {
             statement.executeUpdate(dropTableSQL);
             System.out.println("Table dropped successfully");
 
+            if (!tableExeists(connection, tableName)) {
+                statement.executeUpdate(createTableSQL);
+                System.out.println("Table created successfully!");
+            } else {
+                System.out.println("Table already exists.");
+            }
+
         } catch (SQLException e) {
             // Handle SQL exceptions
             e.printStackTrace();
