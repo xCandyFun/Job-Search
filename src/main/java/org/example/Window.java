@@ -41,7 +41,6 @@ public class Window extends JFrame {
         button5.setFont(new Font("", Font.BOLD, 20));
     }
 
-
     public void mainWindow() {
 
         buttonStyle();
