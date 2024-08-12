@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Window extends JFrame {
 
@@ -100,7 +101,7 @@ public class Window extends JFrame {
 
     public void secondaryWindow() {
 
-        secondaryPanel.setLayout(new GridLayout(10,0));
+        secondaryPanel.setLayout(new GridLayout(10, 0));
 
         JPanel panel3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
@@ -169,7 +170,7 @@ public class Window extends JFrame {
 
     }
 
-    public void thirdWindow(){
+    public void thirdWindow() {
         thirdPanel.removeAll();
 
         List<String> data = mysqlCon.GetDataFromDatabase();
@@ -203,7 +204,7 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 LocalDate today = LocalDate.now();
-                String filePath = today+".csv";
+                String filePath = today + ".csv";
                 mysqlCon.exportDataToCsv(data, filePath);
                 JOptionPane.showMessageDialog(thirdPanel, "Data exported to " + filePath);
                 showMainWindow();
@@ -214,7 +215,6 @@ public class Window extends JFrame {
         thirdPanel.add(exportButton);
 
 
-
         thirdPanel.add(Box.createVerticalGlue());
 
         thirdPanel.revalidate();
@@ -222,9 +222,9 @@ public class Window extends JFrame {
 
     }
 
-    public void fourthWindow(){
+    public void fourthWindow() {
 
-        fourthPanel.setLayout(new GridLayout(10,0));
+        fourthPanel.setLayout(new GridLayout(10, 0));
 
         JPanel panelLayout = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
@@ -314,7 +314,21 @@ public class Window extends JFrame {
         button5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mysqlCon.DropTable();
+
+                JTextField textField = new JTextField(10);
+
+                JOptionPane.showMessageDialog(mainPanel, textField);
+
+                String AreYouSure = textField.getText();
+
+                if (Objects.equals(AreYouSure, "yes")) {
+                    mysqlCon.DropTable();
+                    JOptionPane.showMessageDialog(mainPanel, "Deleted");
+                    showMainWindow();
+                } else {
+                    JOptionPane.showMessageDialog(mainPanel, "The action did not go passed");
+                }
+
             }
         });
 
@@ -344,7 +358,7 @@ public class Window extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode()==KeyEvent.VK_3){
+                if (e.getKeyCode() == KeyEvent.VK_3) {
                     showThirdWindow();
                 }
             }
@@ -353,7 +367,7 @@ public class Window extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_4){
+                if (e.getKeyCode() == KeyEvent.VK_4) {
                     showFourthWindow();
                 }
             }
@@ -361,12 +375,12 @@ public class Window extends JFrame {
 
     }
 
-    private void showMainWindow(){
+    private void showMainWindow() {
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, "Main");
     }
 
-    private void showSecondaryWindow(){
+    private void showSecondaryWindow() {
         secondaryPanel.removeAll();
         secondaryWindow();
         secondaryPanel.revalidate();
@@ -375,13 +389,13 @@ public class Window extends JFrame {
         cl.show(cards, "Secondary");
     }
 
-    private void showThirdWindow(){
+    private void showThirdWindow() {
         thirdWindow();
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, "Third");
     }
 
-    private void showFourthWindow(){
+    private void showFourthWindow() {
         fourthPanel.removeAll();
         fourthWindow();
         fourthPanel.revalidate();
