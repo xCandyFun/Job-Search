@@ -315,9 +315,17 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                JPanel messageDialog = new JPanel();
+
+                JLabel textForMessage = new JLabel("Do You Really want to drop the table: ");
+
                 JTextField textField = new JTextField(10);
 
-                JOptionPane.showMessageDialog(mainPanel, textField);
+                messageDialog.add(textForMessage);
+                messageDialog.add(textField);
+
+
+                JOptionPane.showMessageDialog(null, messageDialog);
 
                 String AreYouSure = textField.getText();
 
@@ -403,5 +411,4 @@ public class Window extends JFrame {
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, "fourth");
     }
-
 }
