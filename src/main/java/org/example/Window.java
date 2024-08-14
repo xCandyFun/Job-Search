@@ -107,31 +107,38 @@ public class Window extends JFrame {
 
         JPanel panel4 = new JPanel();
         JPanel panel5 = new JPanel();
+        JPanel panel6 = new JPanel();
 
         secondaryPanel.add(panel3);
         secondaryPanel.add(panel4);
+        secondaryPanel.add(panel6);
         secondaryPanel.add(panel5);
 
 
+
         // Create a JTextField
-        JTextField textField = new JTextField(20);
-        JTextField textField2 = new JTextField(20);
+        JTextField companyNameTextField = new JTextField(20);
+        JTextField topicTextField = new JTextField(20);
+        JTextField areaTextField = new JTextField(20);
 
         // Create a button
         JButton SaveButton = new JButton("Save");
         JButton BackButton = new JButton("Back");
 
         // Create a label to display the result
-        JLabel label = new JLabel("What is the company name?: ");
+        JLabel companyNameLabel = new JLabel("What is the company name?: ");
 
-        JLabel label3 = new JLabel("What is the topic?: ");
+        JLabel topicLabel = new JLabel("What is the topic?: ");
+
+        JLabel areaLabel = new JLabel("What area are the work?: ");
 
         SaveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String company = textField.getText();
-                String topic = textField2.getText();
+                String company = companyNameTextField.getText();
+                String topic = topicTextField.getText();
+                String area = areaTextField.getText();
                 LocalDate today = LocalDate.now();
 
                 work = new ArrayList<>();
@@ -139,6 +146,7 @@ public class Window extends JFrame {
 
                 work.add(company);
                 work.add(topic);
+                work.add(area);
                 work.add(today);
 
                 mysqlCon.SaveVariablesToMySQL();
@@ -157,16 +165,19 @@ public class Window extends JFrame {
             }
         });
 
-        panel3.add(label);
-        panel3.add(textField);
+        panel3.add(companyNameLabel);
+        panel3.add(companyNameTextField);
 
 
-        panel4.add(label3);
-        panel4.add(textField2);
+        panel4.add(topicLabel);
+        panel4.add(topicTextField);
 
+        panel6.add(areaLabel);
+        panel6.add(areaTextField);
 
         panel5.add(SaveButton);
         panel5.add(BackButton);
+
 
     }
 

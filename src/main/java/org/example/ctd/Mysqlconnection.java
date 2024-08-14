@@ -32,6 +32,7 @@ public class Mysqlconnection {
             + "id INT AUTO_INCREMENT PRIMARY KEY,"
             + "Company VARCHAR(100) NOT NULL,"
             + "Topic VARCHAR(100) NOT NULL,"
+            + "Area VARCHAR(100) NOT NULL,"
             + "Date VARCHAR(100) NOT NULL"
             + ")";
 
@@ -60,16 +61,18 @@ public class Mysqlconnection {
 
         String company = (String) workData.get(0);
         String topic = (String) workData.get(1);
-        LocalDate today = (LocalDate) workData.get(2);
+        String area = (String) workData.get(2);
+        LocalDate today = (LocalDate) workData.get(3);
 
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
             if (conn != null) {
 
-                String sql = "INSERT INTO works (Company, Topic, Date) VALUES (?, ?, ?)";
+                String sql = "INSERT INTO works (Company, Topic, Area, Date) VALUES (?, ?, ?, ?)";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setString(1, company);
                     pstmt.setString(2, topic);
-                    pstmt.setDate(3, java.sql.Date.valueOf(today));
+                    pstmt.setString(3, area);
+                    pstmt.setDate(4, java.sql.Date.valueOf(today));
                     pstmt.executeUpdate();
                     System.out.println("Variables saved successfully!\n");
                 } catch (SQLException e) {
@@ -90,15 +93,16 @@ public class Mysqlconnection {
             if (conn != null) {
 
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT id, Company, Topic, Date FROM works");
+                ResultSet rs = stmt.executeQuery("SELECT id, Company, Topic, Area, Date FROM works");
 
                 while (rs.next()) {
                     String id = rs.getString("id");
                     String company = rs.getString("Company");
                     String topic = rs.getString("Topic");
+                    String area = rs.getString("Area");
                     String date = rs.getString("Date");
 
-                    data.add(id + " - " + company + " - " + topic + " - " + date);
+                    data.add(id + " , " + company + " , " + topic + " , " + area + " , " + date);
                 }
             }
         } catch (SQLException e) {
@@ -109,9 +113,10 @@ public class Mysqlconnection {
 
     public void exportDataToCsv(List<String> data, String filepath) {
         try (FileWriter writer = new FileWriter(filepath)) {
-            writer.append("ID,Company,Topic,Date\n");
+            writer.append("ID,Company,Topic,Area,Date\n");
             for (String record : data) {
-                writer.append(record.replace("-", ",")).append("\n");
+                //writer.append(record.replace("-", ",")).append("\n");
+                writer.append(record).append("\n");
             }
             writer.flush();
         } catch (IOException e) {
