@@ -114,8 +114,8 @@ public class Window extends JFrame {
 
 
         // Create a JTextField
-        JTextField textField = new JTextField(10);
-        JTextField textField2 = new JTextField(10);
+        JTextField textField = new JTextField(20);
+        JTextField textField2 = new JTextField(20);
 
         // Create a button
         JButton SaveButton = new JButton("Save");
