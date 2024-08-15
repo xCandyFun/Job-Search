@@ -42,7 +42,7 @@ public class Mysqlconnection {
         try (Connection connection = DriverManager.getConnection(url, user, password);
              Statement statement = connection.createStatement()) {
             System.out.println("Connected to the database!");
-            if (!tableExeists(connection, tableName)) {
+            if (!tableExists(connection, tableName)) {
                 statement.executeUpdate(createTableSQL);
                 System.out.println("Table created successfully!");
             } else {
@@ -161,7 +161,7 @@ public class Mysqlconnection {
             statement.executeUpdate(dropTableSQL);
             System.out.println("Table dropped successfully");
 
-            if (!tableExeists(connection, tableName)) {
+            if (!tableExists(connection, tableName)) {
                 statement.executeUpdate(createTableSQL);
                 System.out.println("Table created successfully!");
             } else {
@@ -175,7 +175,7 @@ public class Mysqlconnection {
 
     }
 
-    private static boolean tableExeists(Connection connection, String tableName) throws SQLException {
+    private static boolean tableExists(Connection connection, String tableName) throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
         var resultSet = metaData.getTables(null, null, tableName, null);
         return resultSet.next();
