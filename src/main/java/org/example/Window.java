@@ -73,8 +73,6 @@ public class Window extends JFrame {
         mainPanel.add(button5, CENTER_ALIGNMENT);
         mainPanel.add(labels[9], RIGHT_ALIGNMENT);
 
-        //add(panel);
-
         actionListenerForButtons();
         keyListener();
 
@@ -86,7 +84,6 @@ public class Window extends JFrame {
 
         add(cards);
 
-
         setSize(1600, 700);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -94,7 +91,6 @@ public class Window extends JFrame {
 
         setFocusable(true);
         requestFocusInWindow();
-
 
         setVisible(true);
     }
@@ -113,8 +109,6 @@ public class Window extends JFrame {
         secondaryPanel.add(panel4);
         secondaryPanel.add(panel6);
         secondaryPanel.add(panel5);
-
-
 
         // Create a JTextField
         JTextField companyNameTextField = new JTextField(20);
@@ -143,7 +137,6 @@ public class Window extends JFrame {
 
                 work = new ArrayList<>();
 
-
                 work.add(company);
                 work.add(topic);
                 work.add(area);
@@ -153,7 +146,6 @@ public class Window extends JFrame {
 
                 JOptionPane.showMessageDialog(secondaryPanel, "Saved");
 
-                //click on saved button return to main window
                 showMainWindow();
             }
         });
@@ -168,7 +160,6 @@ public class Window extends JFrame {
         panel3.add(companyNameLabel);
         panel3.add(companyNameTextField);
 
-
         panel4.add(topicLabel);
         panel4.add(topicTextField);
 
@@ -177,7 +168,6 @@ public class Window extends JFrame {
 
         panel5.add(SaveButton);
         panel5.add(BackButton);
-
 
     }
 
