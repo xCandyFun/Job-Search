@@ -26,8 +26,6 @@ public class Mysqlconnection {
 
     private final String tableName = "works";
 
-    //id INT AUTO_INCREMENT PRIMARY KEY
-
     String createTableSQL = "CREATE TABLE IF NOT EXISTS works ("
             + "id INT AUTO_INCREMENT PRIMARY KEY,"
             + "Company VARCHAR(100) NOT NULL,"
