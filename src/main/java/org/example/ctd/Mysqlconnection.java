@@ -146,7 +146,6 @@ public class Mysqlconnection {
         }
     }
 
-
     public void DropTable() {
         // SQL statement to drop a table
         String dropTableSQL = "DROP TABLE IF EXISTS works";
