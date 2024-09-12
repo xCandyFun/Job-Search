@@ -14,15 +14,13 @@ public class Mysqlconnection {
 
     Dotenv dotenv = Dotenv.configure().load();
 
-    String urlForDB = dotenv.get("DB_URL");
-    String usernameForDB = dotenv.get("DB_USER");
+    String urlForDB = dotenv.get("DB_URL"),
+            usernameForDB = dotenv.get("DB_USER"),
+            passwordForDB = dotenv.get("DB_PASSWORD");
 
-    String passwordForDB = dotenv.get("DB_PASSWORD");
-
-
-    private final String url = urlForDB;
-    private final String user = usernameForDB;
-    private final String password = passwordForDB;
+    private final String url = urlForDB,
+            user = usernameForDB,
+            password = passwordForDB;
 
     private final String tableName = "works";
 
