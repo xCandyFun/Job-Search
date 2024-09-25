@@ -215,7 +215,6 @@ public class Window extends JFrame {
         thirdPanel.add(backButton);
         thirdPanel.add(exportButton);
 
-
         thirdPanel.add(Box.createVerticalGlue());
 
         thirdPanel.revalidate();
