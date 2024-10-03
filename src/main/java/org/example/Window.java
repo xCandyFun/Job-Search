@@ -34,7 +34,6 @@ public class Window extends JFrame {
     private static List<Object> work;
 
     public void buttonStyle() {
-
         ExitTheApplication.setFont(new Font("", Font.BOLD, 20));
         button2.setFont(new Font("", Font.BOLD, 20));
         button3.setFont(new Font("", Font.BOLD, 20));
