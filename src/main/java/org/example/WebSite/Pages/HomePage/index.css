@@ -3,7 +3,7 @@ header{
 }
 body{
     position: relative;
-    background-image: url('Images/background-image.webp');
+    background-image: url('background-image.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

@@ -289,7 +289,7 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //todo make sure that it sync with the AWS database
-                msac.connectToTheDatabase();
+                //msac.connectToTheDatabase();
                 System.exit(0);
             }
         });
