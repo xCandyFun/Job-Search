@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.ctd.Mysqlconnection;
+import org.example.ConnectionToDatabase.Mysqlconnection;
 
 import javax.swing.*;
 

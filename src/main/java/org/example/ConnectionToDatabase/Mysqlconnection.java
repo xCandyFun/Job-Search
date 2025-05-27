@@ -1,4 +1,4 @@
-package org.example.ctd;
+package org.example.ConnectionToDatabase;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.example.Window;

@@ -1,7 +1,6 @@
 package org.example;
 
-import org.example.ctd.MySqlAWSConnection;
-import org.example.ctd.Mysqlconnection;
+import org.example.ConnectionToDatabase.Mysqlconnection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,8 +16,6 @@ import java.util.Objects;
 public class Window extends JFrame {
 
     static Mysqlconnection mysqlCon = new Mysqlconnection();
-
-    MySqlAWSConnection msac = new MySqlAWSConnection();
 
     public Window() {
         mainWindow();
@@ -288,8 +285,6 @@ public class Window extends JFrame {
         ExitTheApplication.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //todo make sure that it sync with the AWS database
-                //msac.connectToTheDatabase();
                 System.exit(0);
             }
         });
