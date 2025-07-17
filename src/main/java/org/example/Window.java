@@ -218,7 +218,6 @@ public class Window extends JFrame {
 
         thirdPanel.revalidate();
         thirdPanel.repaint();
-
     }
 
     public void fourthWindow() {
