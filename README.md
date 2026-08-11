@@ -36,7 +36,7 @@ While applying for junior developer positions, I wanted a straightforward way to
 
 ## Screenshots
 
-![Screenshot_20260811_101508.png](../../Pictures/Screenshots/Screenshot_20260811_101508.png)
+![App screenshot](docs/screenshots/screenshot.png)
 
 ## Getting started
 
